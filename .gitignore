@@ -1,0 +1,6 @@
+# 로컬 설정 파일
+*.local.md
+
+# 시스템 파일
+.DS_Store
+Thumbs.db
