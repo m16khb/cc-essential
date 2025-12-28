@@ -15,7 +15,7 @@
         "name": "m16khb",
         "email": "m16khb@gmail.com"
       },
-      "source": ".",
+      "source": "./",
       "category": "productivity",
       "homepage": "https://github.com/m16khb/cc-essential",
       "keywords": ["git", "commit", "conventional-commit", "atomic", "korean"]
