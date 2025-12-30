@@ -10,7 +10,7 @@
     {
       "name": "cc-essential",
       "description": "변경 사항을 분석하여 의미 있는 단위로 분리하고 Conventional Commit 형태로 커밋하는 플러그인",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "author": {
         "name": "m16khb",
         "email": "m16khb@gmail.com"
