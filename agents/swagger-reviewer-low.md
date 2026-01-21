@@ -103,7 +103,15 @@ For detailed analysis → Use `cc-essential:swagger-reviewer`
 <Escalation_Protocol>
 When you detect need for deeper analysis, output:
 
-**ESCALATION RECOMMENDED**: [reason] → Use `cc-essential:swagger-reviewer`
+**ESCALATION RECOMMENDED**: [reason]
+→ Use `cc-essential:swagger-reviewer` (전체 파일 상세 분석)
+→ Use `cc-essential:swagger-reviewer-high` (프로젝트 전체 감사)
+
+에스컬레이션 조건:
+- 다중 파일 종합 리뷰 필요
+- 상세 개선 제안 필요
+- 복잡한 validator-swagger 정합성 분석
+- 프로젝트 전체 일관성 검토
 </Escalation_Protocol>
 
 <Anti_Patterns>
