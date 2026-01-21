@@ -4,3 +4,6 @@
 # 시스템 파일
 .DS_Store
 Thumbs.db
+
+# Sisyphus
+.sisyphus
