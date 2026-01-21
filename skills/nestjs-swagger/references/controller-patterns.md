@@ -135,3 +135,166 @@ import { Public } from '@/common/decorators'
 @ApiOperation({ summary: '헬스 체크' })
 async healthCheck() {}
 ```
+
+## @ApiQuery 상세 패턴
+
+쿼리 파라미터를 명시적으로 문서화하여 Swagger UI에서 개별 파라미터로 표시합니다.
+
+### 기본 패턴
+
+```typescript
+@Get()
+@ApiQuery({
+  name: 'search',
+  description: '검색어 (제목, 내용에서 검색)',
+  required: false,
+  type: String,
+  example: 'nestjs'
+})
+@ApiQuery({
+  name: 'page',
+  description: '페이지 번호 (1부터 시작, 기본값: 1)',
+  required: false,
+  type: Number,
+  example: 1,
+})
+findAll(
+  @Query('search') search?: string,
+  @Query('page') page: number = 1
+) {}
+```
+
+### Enum 쿼리 파라미터
+
+```typescript
+@Get()
+@ApiQuery({
+  name: 'status',
+  description: '주문 상태 필터 (pending | processing | shipped | delivered | cancelled)',
+  enum: OrderStatus,
+  required: false,
+  example: OrderStatus.PENDING
+})
+@ApiQuery({
+  name: 'sortBy',
+  description: '정렬 기준 (createdAt | updatedAt | price)',
+  enum: ['createdAt', 'updatedAt', 'price'],
+  required: false,
+  example: 'createdAt'
+})
+findByStatus(
+  @Query('status') status?: OrderStatus,
+  @Query('sortBy') sortBy: string = 'createdAt'
+) {}
+```
+
+### 범위 쿼리 파라미터
+
+```typescript
+@Get()
+@ApiQuery({
+  name: 'minPrice',
+  description: '최소 가격 필터 (0 이상)',
+  required: false,
+  type: Number,
+  example: 10000,
+})
+@ApiQuery({
+  name: 'maxPrice',
+  description: '최대 가격 필터',
+  required: false,
+  type: Number,
+  example: 100000
+})
+@ApiQuery({
+  name: 'minSimilarity',
+  description: '최소 유사도 필터 (0~1, 기본값: 없음)',
+  required: false,
+  type: Number,
+  example: 0.8,
+})
+filterProducts(
+  @Query('minPrice') minPrice?: number,
+  @Query('maxPrice') maxPrice?: number,
+  @Query('minSimilarity') minSimilarity?: number
+) {}
+```
+
+### DTO와 @ApiQuery 함께 사용
+
+DTO 클래스를 사용하면서도 개별 파라미터를 명시적으로 문서화:
+
+```typescript
+@Get()
+@ApiQuery({ name: 'page', description: '페이지 번호 (미지정 시 1)', required: false, example: 1 })
+@ApiQuery({ name: 'limit', description: '페이지당 항목 수 (미지정 시 10)', required: false, example: 10 })
+@ApiQuery({ name: 'sortBy', description: '정렬 기준 (createdAt | updatedAt)', required: false, example: 'createdAt' })
+findAll(@Query() query: PaginationQueryDto) {}
+```
+
+> **Tip**: DTO만 사용해도 Swagger가 스키마를 생성하지만, @ApiQuery를 추가하면 Swagger UI에서 더 명확하게 표시됩니다.
+
+## @ApiParam 상세 패턴
+
+경로 파라미터를 문서화합니다.
+
+### 기본 패턴
+
+```typescript
+@Get(':id')
+@ApiParam({
+  name: 'id',
+  description: '리소스 고유 ID',
+  type: Number,
+  example: 1
+})
+findOne(@Param('id') id: number) {}
+```
+
+### UUID 파라미터
+
+```typescript
+@Get(':userId')
+@ApiParam({
+  name: 'userId',
+  description: '사용자 고유 식별자 (UUID v4 형식)',
+  type: String,
+  example: '550e8400-e29b-41d4-a716-446655440000'
+})
+findUser(@Param('userId') userId: string) {}
+```
+
+### 다중 경로 파라미터
+
+```typescript
+@Get(':categoryId/products/:productId')
+@ApiParam({
+  name: 'categoryId',
+  description: '카테고리 ID (GET /categories에서 조회 가능)',
+  type: String,
+  example: 'cat_electronics'
+})
+@ApiParam({
+  name: 'productId',
+  description: '상품 ID',
+  type: Number,
+  example: 123
+})
+findProduct(
+  @Param('categoryId') categoryId: string,
+  @Param('productId') productId: number
+) {}
+```
+
+### Enum 경로 파라미터
+
+```typescript
+@Get(':status/orders')
+@ApiParam({
+  name: 'status',
+  description: '주문 상태 (pending | completed | cancelled)',
+  enum: ['pending', 'completed', 'cancelled'],
+  example: 'pending'
+})
+findOrdersByStatus(@Param('status') status: string) {}
+```

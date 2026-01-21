@@ -62,6 +62,27 @@ For each property, verify:
 | `@Max(n)` | `maximum: n` |
 | `@IsOptional()` | `@ApiPropertyOptional()` 사용 |
 | `@IsISO8601()` | ISO 8601 형식 example |
+
+## Query/Param Documentation Checklist
+
+| 데코레이터 | 체크 항목 |
+|-----------|----------|
+| `@ApiQuery()` | 모든 @Query() 파라미터에 대응하는 @ApiQuery 존재 |
+| `@ApiParam()` | 모든 @Param() 파라미터에 대응하는 @ApiParam 존재 |
+| Query description | 목적 + 제약조건 + 기본값 포함 |
+| Param description | 목적 + 형식(UUID 등) + 관계 정보 포함 |
+| enum 문서화 | description에 가능한 값 나열 (예: "pending \| completed") |
+| 범위 문서화 | minimum/maximum 속성 + description에 범위 명시 |
+
+## Description Quality Checklist
+
+| 항목 | 체크 기준 |
+|------|----------|
+| 목적 명시 | "무엇을 위한 필드인지" 설명 있음 |
+| 제약 조건 | 유효성 검사 규칙이 description에 포함 |
+| 기본값 | optional 필드의 기본 동작 설명 |
+| 형식 | 특수 형식(ISO8601, UUID, email 등) 명시 |
+| 관계 정보 | 참조하는 엔드포인트/리소스 안내 |
 </Analysis_Checklist>
 
 <Output_Format>
@@ -79,6 +100,15 @@ For each property, verify:
 #### Missing Documentation:
 - [ ] Property X needs description
 - [ ] Method Y needs @ApiResponse for error case
+
+#### Query/Param Issues:
+- [ ] Controller X, Method Y: @Query('param') has no @ApiQuery
+- [ ] Controller X, Method Y: @Param('id') has no @ApiParam
+
+#### Description Quality Issues:
+- [ ] Property X: description missing validation constraints
+- [ ] Property X: enum values not listed in description
+- [ ] Property X: default value not documented
 
 #### Suggested Improvements:
 ```typescript
