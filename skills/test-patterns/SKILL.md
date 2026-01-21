@@ -173,3 +173,51 @@ beforeEach(() => {
 | 설정/모듈 | 낮음 | 낮음 |
 
 **중요**: 100% 커버리지가 목표가 아닙니다. 의미 있는 테스트에 집중하세요.
+
+## Integration Testing with Testcontainers
+
+### Testsuite 3.x 구조
+
+```typescript
+// 테스트 스위트 구조화
+describe('UserModule (Integration)', () => {
+  let app: INestApplication;
+  let container: StartedPostgreSqlContainer;
+
+  beforeAll(async () => {
+    // Testcontainers로 DB 시작
+    container = await new PostgreSqlContainer()
+      .withDatabase('test_db')
+      .start();
+
+    // 동적 환경 변수 설정
+    process.env.DATABASE_URL = container.getConnectionUri();
+
+    const moduleRef = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile();
+
+    app = moduleRef.createNestApplication();
+    await app.init();
+  });
+
+  afterAll(async () => {
+    await app.close();
+    await container.stop();
+  });
+
+  // 테스트 케이스...
+});
+```
+
+### 주요 Testcontainers
+
+| Container | 용도 | 패키지 |
+|-----------|------|--------|
+| PostgreSqlContainer | PostgreSQL DB | @testcontainers/postgresql |
+| RedisContainer | Redis 캐시 | @testcontainers/redis |
+| KafkaContainer | Kafka 메시지큐 | @testcontainers/kafka |
+| GenericContainer | 커스텀 컨테이너 | testcontainers |
+
+### References
+- `references/testcontainers.md` - Testcontainers 심화 가이드
