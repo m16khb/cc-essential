@@ -10,7 +10,7 @@
     {
       "name": "cc-essential",
       "description": "Atomic Commit: 변경 사항을 분석하여 의미 있는 단위로 분리하고 Conventional Commit 형태로 커밋. NestJS Swagger: DTO/Controller 문서화 체크리스트 자동 표시 및 리뷰 에이전트 제공.",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "author": {
         "name": "m16khb",
         "email": "m16khb@gmail.com"
