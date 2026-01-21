@@ -1,11 +1,13 @@
 ---
+name: readme-sync
+description: README와 실제 프로젝트 상태 동기화 검증 에이전트. README 검증, 문서 동기화, 프로젝트 상태 체크 요청 시 활성화.
 model: sonnet
 tools:
   - Read
   - Grep
   - Glob
   - Bash
-color: blue
+color: cyan
 ---
 
 # README Sync Agent

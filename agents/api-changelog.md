@@ -1,4 +1,6 @@
 ---
+name: api-changelog
+description: API Breaking Change 감지 및 CHANGELOG 생성 에이전트. API 변경 감지, changelog 생성, breaking change 분석 요청 시 활성화.
 model: opus
 tools:
   - Read

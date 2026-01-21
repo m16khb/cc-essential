@@ -1,11 +1,13 @@
 ---
+name: dead-code-hunter
+description: Knip 기반 미사용 코드 탐지 에이전트. dead code, 미사용 코드, unused export, 코드 정리 요청 시 활성화.
 model: opus
 tools:
   - Read
   - Grep
   - Glob
   - Bash
-color: red
+color: green
 ---
 
 # Dead Code Hunter Agent

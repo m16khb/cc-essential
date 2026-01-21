@@ -1,4 +1,6 @@
 ---
+name: dependency-auditor
+description: 의존성 보안 및 품질 감사 에이전트. 의존성 감사, npm audit, 보안 취약점, 미사용 패키지 요청 시 활성화.
 model: sonnet
 tools:
   - Read

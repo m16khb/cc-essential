@@ -1,10 +1,14 @@
 ---
+name: coverage-advisor
+description: 테스트 커버리지 심층 분석 에이전트. 커버리지 분석, 누락 테스트 제안, coverage gap, 브랜치 커버리지 요청 시 활성화.
 model: opus
 tools:
   - Read
   - Grep
   - Glob
   - Bash
+skills:
+  - test-patterns
 color: green
 ---
 
