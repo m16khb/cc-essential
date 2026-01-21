@@ -1,5 +1,5 @@
 {
-  "description": "cc-essential hooks - Swagger documentation reminder",
+  "description": "cc-essential hooks - 코드 품질 자동 리마인더",
   "hooks": {
     "PostToolUse": [
       {
@@ -9,6 +9,21 @@
             "type": "command",
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/swagger-reminder.mjs\"",
             "timeout": 3
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/test-reminder.mjs\"",
+            "timeout": 3
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/tsdoc-reminder.mjs\"",
+            "timeout": 3
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/api-change-detector.mjs\"",
+            "timeout": 5
           }
         ]
       }
