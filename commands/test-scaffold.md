@@ -1,13 +1,11 @@
 ---
 description: 소스 파일 분석하여 테스트 파일 스캐폴딩 생성
-argument-hint: "<file-path> [--style=aaa|gwt]"
+argument-hint: "<file-path> [--style=aaa|gwt] [--integration]"
 model: claude-haiku-4-5
 allowed-tools:
   - Read
   - Write
   - Glob
-  - Grep
-  - Bash
 ---
 
 # Test Scaffolder
@@ -21,6 +19,7 @@ allowed-tools:
 | `<file-path>` | 테스트 대상 소스 파일 경로 | 필수 |
 | `--style=aaa` | AAA 패턴 (Arrange-Act-Assert) | 기본값 |
 | `--style=gwt` | GWT 패턴 (Given-When-Then) | - |
+| `--integration` | Testcontainers 기반 통합 테스트 생성 | - |
 
 ## 실행 단계
 

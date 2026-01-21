@@ -5,8 +5,6 @@ model: claude-haiku-4-5
 allowed-tools:
   - Bash
   - Read
-  - Grep
-  - Glob
   - Task
   - AskUserQuestion
   - TodoWrite
