@@ -1,6 +1,6 @@
 {
   "name": "cc-essential",
-  "version": "0.2.1",
+  "version": "0.4.0",
   "description": "Claude Code 필수 플러그인: Atomic Commit + NestJS Swagger 문서화 지원",
   "author": {
     "name": "m16khb",
