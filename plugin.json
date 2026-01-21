@@ -1,7 +1,7 @@
 {
   "name": "cc-essential",
-  "version": "0.3.0",
-  "description": "Claude Code 필수 플러그인 모음 - 테스트, 문서화, 코드 품질을 위한 종합 도구 세트",
+  "version": "0.4.0",
+  "description": "Claude Code 필수 플러그인 모음 - 테스트, 문서화, 코드 품질을 위한 종합 도구 세트 (Testcontainers 지원)",
   "author": "m16khb",
   "license": "MIT",
   "repository": "https://github.com/m16khb/cc-essential",
@@ -30,6 +30,11 @@
       "description": "변경 사항 분석 에이전트"
     },
     {
+      "name": "commit-analyzer-low",
+      "model": "haiku",
+      "description": "빠른 커밋 분류 체크"
+    },
+    {
       "name": "swagger-reviewer",
       "model": "sonnet",
       "description": "Swagger 문서화 리뷰 (상세)"
@@ -40,9 +45,24 @@
       "description": "Swagger 문서화 리뷰 (빠른 체크)"
     },
     {
+      "name": "swagger-reviewer-high",
+      "model": "opus",
+      "description": "프로젝트 전체 Swagger 문서화 심층 감사"
+    },
+    {
       "name": "coverage-advisor",
       "model": "opus",
-      "description": "테스트 커버리지 분석 및 누락 테스트 제안"
+      "description": "테스트 커버리지 심층 분석 및 누락 테스트 제안"
+    },
+    {
+      "name": "coverage-advisor-medium",
+      "model": "sonnet",
+      "description": "표준 커버리지 분석 및 테스트 케이스 제안"
+    },
+    {
+      "name": "coverage-advisor-low",
+      "model": "haiku",
+      "description": "빠른 커버리지 수치 확인"
     },
     {
       "name": "api-changelog",
@@ -80,6 +100,20 @@
     }
   ],
   "hooks": {
+    "SessionStart": [
+      {
+        "name": "session-init",
+        "matcher": "*",
+        "description": "프로젝트 타입 감지 및 권장 도구 안내"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "name": "keyword-detector",
+        "matcher": "*",
+        "description": "키워드 기반 도구/에이전트 추천"
+      }
+    ],
     "PostToolUse": [
       {
         "name": "swagger-reminder",
@@ -107,6 +141,7 @@
     "nestjs",
     "swagger",
     "testing",
+    "testcontainers",
     "documentation",
     "code-quality",
     "conventional-commit",
