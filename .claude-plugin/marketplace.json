@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "cc-essential",
-  "description": "Claude Code 필수 플러그인 모음. 변경 사항을 분석하여 의미 있는 단위로 분리하고 Conventional Commit 형태로 커밋합니다.",
+  "description": "Claude Code 필수 플러그인 모음. Atomic Commit (변경 사항 분석 및 Conventional Commit), NestJS Swagger 문서화 지원을 제공합니다.",
   "owner": {
     "name": "m16khb",
     "email": "m16khb@gmail.com"
@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "cc-essential",
-      "description": "변경 사항을 분석하여 의미 있는 단위로 분리하고 Conventional Commit 형태로 커밋하는 플러그인",
+      "description": "Atomic Commit: 변경 사항을 분석하여 의미 있는 단위로 분리하고 Conventional Commit 형태로 커밋. NestJS Swagger: DTO/Controller 문서화 체크리스트 자동 표시 및 리뷰 에이전트 제공.",
       "version": "0.2.0",
       "author": {
         "name": "m16khb",
@@ -18,7 +18,8 @@
       "source": "./",
       "category": "productivity",
       "homepage": "https://github.com/m16khb/cc-essential",
-      "keywords": ["git", "commit", "conventional-commit", "atomic", "korean"]
+      "keywords": ["git", "commit", "conventional-commit", "atomic", "korean", "swagger", "nestjs", "dto", "api-docs", "documentation"],
+      "tags": ["git", "commit", "swagger", "nestjs", "productivity", "documentation"]
     }
   ]
 }

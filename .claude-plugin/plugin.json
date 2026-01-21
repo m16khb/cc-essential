@@ -4,7 +4,11 @@
   "description": "Claude Code 필수 플러그인: Atomic Commit + NestJS Swagger 문서화 지원",
   "author": {
     "name": "m16khb",
-    "email": "m16khb@gmail.com"
+    "email": "m16khb@gmail.com",
+    "url": "https://github.com/m16khb"
   },
+  "homepage": "https://github.com/m16khb/cc-essential",
+  "repository": "https://github.com/m16khb/cc-essential",
+  "license": "MIT",
   "keywords": ["git", "commit", "conventional-commit", "atomic", "swagger", "nestjs", "dto", "api-docs", "claude-code"]
 }
