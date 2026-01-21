@@ -1,6 +1,6 @@
 ---
 name: nestjs-swagger
-description: NestJS Swagger/DTO 문서화 가이드. DTO 작성/수정, Swagger 데코레이터 추가, API 문서화 관련 작업 시 활성화.
+description: Use when documenting NestJS DTOs or Controllers with Swagger decorators. CSO keywords: @ApiProperty, @ApiOperation, DTO 문서화, swagger decorator, API docs, OpenAPI, 스웨거
 ---
 
 # NestJS Swagger Documentation Skill

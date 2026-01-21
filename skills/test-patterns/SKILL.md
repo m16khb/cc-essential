@@ -1,6 +1,6 @@
 ---
 name: test-patterns
-description: NestJS 테스트 패턴 및 베스트 프랙티스 가이드
+description: Use when writing tests, understanding AAA pattern, or setting up Testcontainers. CSO keywords: jest mock, beforeEach, 테스트 작성, AAA 패턴, testcontainers, 통합 테스트, integration test
 ---
 
 # Test Patterns Skill

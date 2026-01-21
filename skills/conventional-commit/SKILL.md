@@ -1,6 +1,6 @@
 ---
 name: conventional-commit
-description: Conventional Commit 형식으로 커밋 메시지를 작성하는 가이드. 사용자가 "커밋 메시지", "conventional commit", "커밋 컨벤션", "커밋 규칙", "커밋 작성", "atomic commit", "원자적 커밋"에 대해 질문하거나 커밋 메시지 작성을 요청할 때 활성화.
+description: Use when writing commit messages or understanding conventional commit format. CSO keywords: 커밋 메시지, commit message, feat fix refactor, breaking change, 커밋 규칙, atomic commit, 원자적 커밋
 ---
 
 # Conventional Commit Guide
