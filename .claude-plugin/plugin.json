@@ -1,10 +1,10 @@
 {
   "name": "cc-essential",
-  "version": "0.1.0",
-  "description": "변경 사항을 분석하여 의미 있는 단위로 분리하고 Conventional Commit 형태로 커밋하는 Claude Code 플러그인",
+  "version": "0.2.0",
+  "description": "Claude Code 필수 플러그인: Atomic Commit + NestJS Swagger 문서화 지원",
   "author": {
     "name": "m16khb",
     "email": "m16khb@gmail.com"
   },
-  "keywords": ["git", "commit", "conventional-commit", "atomic", "claude-code"]
+  "keywords": ["git", "commit", "conventional-commit", "atomic", "swagger", "nestjs", "dto", "api-docs", "claude-code"]
 }

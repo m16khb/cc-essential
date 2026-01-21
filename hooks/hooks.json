@@ -1,0 +1,17 @@
+{
+  "description": "cc-essential hooks - Swagger documentation reminder",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/swagger-reminder.mjs\"",
+            "timeout": 3
+          }
+        ]
+      }
+    ]
+  }
+}

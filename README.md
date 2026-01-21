@@ -1,13 +1,19 @@
 # cc-essential
 
-Claude Code 필수 플러그인 모음. 변경 사항을 분석하여 의미 있는 단위로 분리하고 Conventional Commit 형태로 커밋합니다.
+Claude Code 필수 플러그인 모음.
 
 ## 기능
 
+### 1. Atomic Commit
 - **변경 사항 분석**: staged/unstaged 파일의 내용을 분석
 - **논리적 단위 분리**: 의미 기반 + 모듈 기반으로 변경 사항 그룹화
 - **Conventional Commit**: 표준 prefix (feat, fix, refactor 등) 자동 적용
 - **한글 커밋 메시지**: 자연스러운 한글 커밋 메시지 생성
+
+### 2. NestJS Swagger Documentation
+- **자동 체크리스트**: DTO/Controller 파일 편집 시 Swagger 문서화 체크리스트 자동 표시
+- **문서화 리뷰**: swagger-reviewer 에이전트로 문서화 완성도 분석
+- **베스트 프랙티스**: nestjs-swagger 스킬로 DTO/Controller 패턴 가이드
 
 ## 설치
 
@@ -85,9 +91,43 @@ cp -r cc-essential ~/.claude/plugins/
 
 ## 구성 요소
 
+### Atomic Commit
 - **Command**: `/atomic-commit` - 사용자 진입점
 - **Agent**: `commit-analyzer` - 변경 사항 분석 에이전트
 - **Skill**: `conventional-commit` - Conventional Commit 형식 가이드
+
+### NestJS Swagger
+- **Agents**: `swagger-reviewer`, `swagger-reviewer-low` - 문서화 완성도 분석
+- **Skill**: `nestjs-swagger` - DTO/Controller Swagger 문서화 가이드
+- **Hook**: `swagger-reminder` - DTO/Controller 편집 시 체크리스트 자동 표시
+
+## Swagger 사용법
+
+### 자동 체크리스트 (Hook)
+
+DTO나 Controller 파일을 편집하면 자동으로 체크리스트가 표시됩니다:
+
+```
+[DTO Swagger 문서화 체크리스트]
+- [ ] 모든 필수 프로퍼티에 @ApiProperty({ description, example }) 추가
+- [ ] 모든 선택 프로퍼티에 @ApiPropertyOptional({ description, example }) 추가
+- [ ] enum 필드: enum 속성이 validator의 @IsIn() 값과 일치
+...
+```
+
+### 문서화 리뷰 (Agent)
+
+```bash
+# 상세 분석 (Sonnet 모델)
+"src/modules/user/dto/ 폴더의 DTO들 swagger 문서화 리뷰해줘"
+
+# 빠른 체크 (Haiku 모델)
+"user.controller.ts의 swagger 문서화 빠르게 체크해줘"
+```
+
+### Swagger 스킬 활성화
+
+DTO 작성, Swagger 데코레이터 추가 등의 작업 시 자동으로 `nestjs-swagger` 스킬이 활성화됩니다.
 
 ## 라이선스
 
