@@ -93,7 +93,9 @@ async findOne(@Param('id') id: number): Promise<NewsItemResponseDto> {
 - V2: \`contentLanguageCodes\` 사용 (언어 기반 필터)
 - V3: \`contentCountrySetting\` 사용 (국가 기반 필터, 자동 적용)`,
 })
-async findPersonaV3(@Query() query: FindPersonaRequestDto) {}
+async findPersonaV3(@Query() query: FindPersonaRequestDto) {
+  return this.personaService.findV3(query);
+}
 ```
 
 ## 커스텀 헤더 문서화
@@ -347,8 +349,14 @@ export function ApiStandardResponses() {
   )
 }
 
-// 페이지네이션 응답 데코레이터
-export function ApiPaginatedResponse(dataDto: Type) {
+/**
+ * 페이지네이션 응답 데코레이터
+ *
+ * @param dataDto - 데이터 배열의 아이템 DTO 클래스
+ * @note PagePaginatedResponseDto는 프로젝트에서 정의해야 합니다
+ * @see dto-templates.md의 "Generic/Mixin 패턴" 참조
+ */
+export function ApiPaginatedResponse<T>(dataDto: Type<T>) {
   return applyDecorators(
     ApiExtraModels(PagePaginatedResponseDto, dataDto),
     ApiOkResponse({
@@ -370,15 +378,23 @@ export function ApiPaginatedResponse(dataDto: Type) {
 }
 
 // 사용 예시
-@Post()
-@ApiOperation({ summary: 'Create user' })
-@ApiResponse({ status: 201, type: UserDto })
-@ApiStandardResponses()  // 표준 에러 일괄 적용
-create(@Body() dto: CreateUserDto) {}
+@Controller('users')
+@ApiTags('Users')
+export class UserController {
+  @Post()
+  @ApiOperation({ summary: 'Create user' })
+  @ApiResponse({ status: 201, type: UserDto })
+  @ApiStandardResponses()  // 표준 에러 일괄 적용
+  create(@Body() dto: CreateUserDto) {
+    // implementation
+  }
 
-@Get()
-@ApiOperation({ summary: 'Get user list' })
-@ApiPaginatedResponse(UserDto)  // 페이지네이션 응답 자동 설정
-@ApiStandardResponses()
-findAll(@Query() query: PaginationQueryDto) {}
+  @Get()
+  @ApiOperation({ summary: 'Get user list' })
+  @ApiPaginatedResponse(UserDto)  // 페이지네이션 응답 자동 설정
+  @ApiStandardResponses()
+  findAll(@Query() query: PaginationQueryDto) {
+    // implementation
+  }
+}
 ```
