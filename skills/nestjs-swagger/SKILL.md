@@ -145,6 +145,7 @@ API 소비자(프론트엔드 개발자)가 쉽게 사용할 수 있도록:
 ## 상세 가이드
 
 - **Description 작성법**: [references/description-guide.md](references/description-guide.md)
+- **SDK 최적화**: [references/sdk-optimization-guide.md](references/sdk-optimization-guide.md)
 - DTO 템플릿: [references/dto-templates.md](references/dto-templates.md)
 - Controller 패턴: [references/controller-patterns.md](references/controller-patterns.md)
 - 커스텀 밸리데이터: [references/custom-validators.md](references/custom-validators.md)
