@@ -182,7 +182,14 @@ interface FindPersonaRequest {
 사용자의 현재 국가를 지정합니다. 콘텐츠 필터링 및 번역 매칭에 사용됩니다.
 
 **지원 국가:**
-\`KR\` (한국), \`US\` (미국), \`JP\` (일본), \`TW\` (대만), \`TH\` (태국), \`CN\` (중국)`,
+| 코드 | 국가 |
+|---|---|
+| \`KR\` | 한국 |
+| \`US\` | 미국 |
+| \`JP\` | 일본 |
+| \`TW\` | 대만 |
+| \`TH\` | 태국 |
+| \`CN\` | 중국 |`,
   example: 'KR',
   enum: ALLOWED_COUNTRY_CODES,
   enumName: 'AllowedCountryCode',
