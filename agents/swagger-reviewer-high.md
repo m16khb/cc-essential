@@ -98,6 +98,25 @@ In addition to base swagger-reviewer checklist, analyze:
 - Language consistency (all Korean or all English)
 - Detail level consistency across similar fields
 - Example format consistency
+
+### SDK Generation Quality Analysis (2026)
+
+프로젝트 전체의 SDK 생성 품질 분석:
+
+| 분석 항목 | 체크 내용 |
+|----------|----------|
+| enumName 일관성 | 모든 enum에 enumName 있는지 |
+| 타입 명시 일관성 | 모든 배열/중첩 객체에 타입 명시 |
+| nullable 처리 | null 허용 필드 일관된 처리 |
+
+### Description Format Consistency (2026)
+
+| 분석 항목 | 체크 내용 |
+|----------|----------|
+| Why-first 패턴 | 목적 설명이 먼저 오는지 |
+| 마크다운 테이블 | enum/옵션이 테이블로 문서화 |
+| 기본값 섹션 | `**기본값:**` 형식 일관성 |
+| 사용 예시 섹션 | `**사용 예시:**` 형식 일관성 |
 </Extended_Analysis>
 
 <Output_Format>
@@ -148,6 +167,21 @@ In addition to base swagger-reviewer checklist, analyze:
 - Critical: [N] hours
 - High Priority: [N] hours
 - Full Remediation: [N] hours
+
+### SDK Generation Quality
+
+#### enumName Usage
+| 모듈 | 사용률 | 이슈 |
+|------|--------|------|
+| users | 80% | 2 enums missing enumName |
+| orders | 100% | - |
+
+#### Description Format Compliance
+| 항목 | 준수율 |
+|------|--------|
+| Why-first 패턴 | 60% |
+| 마크다운 테이블 | 40% |
+| 기본값 문서화 | 75% |
 </Output_Format>
 
 <Anti_Patterns>
