@@ -66,6 +66,36 @@ async findOne(@Param('id') id: number): Promise<NewsItemResponseDto> {
 }
 ```
 
+## @ApiOperation 상세 Description 패턴
+
+엔드포인트의 동작을 마크다운 테이블로 상세 설명합니다:
+
+```typescript
+@Get('/personas/v3')
+@ApiOperation({
+  summary: '페르소나 목록 조회 (V3)',
+  description: `사용자의 콘텐츠 국가 설정에 따라 페르소나 목록을 조회합니다.
+
+**콘텐츠 국가 설정 적용:**
+| 설정 | 동작 |
+|------|------|
+| \`ALL_COUNTRIES\` | 사용자 국가 콘텐츠 + 글로벌 콘텐츠 |
+| \`CURRENT_COUNTRY\` | 사용자 국가 콘텐츠만 표시 |
+
+**주요 Query Parameters:**
+| 파라미터 | 타입 | 설명 |
+|----------|------|------|
+| \`personaIds\` | string | 특정 페르소나 ID들만 조회 (쉼표 구분) |
+| \`name\` | string | 이름 검색 (부분 일치) |
+| \`tagIds\` | string | 태그 필터 (쉼표 구분) |
+
+**V2와의 차이점:**
+- V2: \`contentLanguageCodes\` 사용 (언어 기반 필터)
+- V3: \`contentCountrySetting\` 사용 (국가 기반 필터, 자동 적용)`,
+})
+async findPersonaV3(@Query() query: FindPersonaRequestDto) {}
+```
+
 ## 커스텀 헤더 문서화
 
 ```typescript
@@ -297,4 +327,58 @@ findProduct(
   example: 'pending'
 })
 findOrdersByStatus(@Param('status') status: string) {}
+```
+
+## 복합 데코레이터 (재사용)
+
+표준 에러 응답을 한 번에 적용하는 커스텀 데코레이터:
+
+```typescript
+import { applyDecorators, Type } from '@nestjs/common'
+import { ApiResponse, ApiExtraModels, ApiOkResponse, getSchemaPath } from '@nestjs/swagger'
+
+// 표준 에러 응답 데코레이터
+export function ApiStandardResponses() {
+  return applyDecorators(
+    ApiResponse({ status: 400, description: 'Bad Request - 잘못된 요청 파라미터' }),
+    ApiResponse({ status: 401, description: 'Unauthorized - 인증 실패' }),
+    ApiResponse({ status: 403, description: 'Forbidden - 권한 없음' }),
+    ApiResponse({ status: 500, description: 'Internal Server Error - 서버 오류' })
+  )
+}
+
+// 페이지네이션 응답 데코레이터
+export function ApiPaginatedResponse(dataDto: Type) {
+  return applyDecorators(
+    ApiExtraModels(PagePaginatedResponseDto, dataDto),
+    ApiOkResponse({
+      schema: {
+        allOf: [
+          { $ref: getSchemaPath(PagePaginatedResponseDto) },
+          {
+            properties: {
+              data: {
+                type: 'array',
+                items: { $ref: getSchemaPath(dataDto) },
+              },
+            },
+          },
+        ],
+      },
+    })
+  )
+}
+
+// 사용 예시
+@Post()
+@ApiOperation({ summary: 'Create user' })
+@ApiResponse({ status: 201, type: UserDto })
+@ApiStandardResponses()  // 표준 에러 일괄 적용
+create(@Body() dto: CreateUserDto) {}
+
+@Get()
+@ApiOperation({ summary: 'Get user list' })
+@ApiPaginatedResponse(UserDto)  // 페이지네이션 응답 자동 설정
+@ApiStandardResponses()
+findAll(@Query() query: PaginationQueryDto) {}
 ```
