@@ -76,6 +76,9 @@ DTO/Controller에서 누락된 항목 빠르게 스캔:
 - @Param() without corresponding @ApiParam
 - Description missing validation constraints
 - Enum fields without values listed in description
+- **enum without enumName** (SDK 최적화)
+- **Options not in markdown table format** (가독성)
+- **Missing default value documentation** (**기본값:** 패턴)
 
 Output: Simple checklist of issues found.
 </Task>
@@ -93,6 +96,16 @@ Output: Simple checklist of issues found.
 - [ ] Controller X: @Param('id') missing @ApiParam
 - [ ] Property `fieldName`: enum values not in description
 - [ ] Property `fieldName`: validation rules not in description
+
+**SDK Issues:**
+- [ ] line N: enum `status` missing enumName
+- [ ] line N: array `items` needs explicit type `type: [ItemDto]`
+- [ ] line N: nullable property missing `nullable: true`
+
+**Description Format Issues:**
+- [ ] line N: `status` options should be in markdown table
+- [ ] line N: `limit` missing **기본값:** section
+- [ ] line N: `categoryId` missing purpose (why) explanation
 
 **OK:** [count] properties properly documented
 
