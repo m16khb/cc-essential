@@ -28,6 +28,34 @@ export const SUPPORTED_SYMBOLS = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT'] as const
 symbol!: string
 ```
 
+## Enum 필드 - enumName 필수
+
+SDK 자동 생성 시 enum 타입을 재사용 가능하게 하려면 `enumName`이 필수입니다:
+
+```typescript
+// ❌ BAD - SDK에서 string으로 생성됨
+@ApiProperty({ enum: ['ACTIVE', 'INACTIVE'] })
+status: string
+
+// ❌ BAD - enumName 없음
+@ApiProperty({ enum: OrderStatus })
+status: OrderStatus
+
+// ✅ GOOD - SDK에서 OrderStatus 타입으로 재사용 가능
+@ApiProperty({
+  enum: OrderStatus,
+  enumName: 'OrderStatus',  // 필수!
+  description: `주문 상태
+
+**옵션:**
+| 값 | 설명 |
+|---|---|
+| \`PENDING\` | 대기 중 |
+| \`COMPLETED\` | 완료됨 |`,
+})
+status: OrderStatus
+```
+
 ## 기본값 패턴
 
 ```typescript
@@ -105,4 +133,99 @@ createdAt!: Date
   oneOf: [{ type: 'string' }, { type: 'number' }],
 })
 nextCursor!: string | number | null
+```
+
+## Generic/Mixin 패턴 (페이지네이션)
+
+TypeScript의 제네릭은 런타임에 지워지므로 Swagger가 인식할 수 없습니다.
+Mixin 함수로 해결합니다:
+
+```typescript
+import { Type } from '@nestjs/common'
+import { ApiProperty } from '@nestjs/swagger'
+import { Type as TransformType } from 'class-transformer'
+
+// 페이지네이션 메타데이터
+export class PaginationMetaDto {
+  @ApiProperty({ example: 1, description: '현재 페이지' })
+  page!: number
+
+  @ApiProperty({ example: 10, description: '페이지당 항목 수' })
+  limit!: number
+
+  @ApiProperty({ example: 100, description: '전체 항목 수' })
+  totalItems!: number
+
+  @ApiProperty({ example: 10, description: '전체 페이지 수' })
+  totalPages!: number
+}
+
+// Mixin 함수
+export function createPaginatedResponseDto<T>(classRef: Type<T>) {
+  abstract class PaginatedResponseDto {
+    @ApiProperty({
+      type: [classRef],
+      description: '데이터 목록'
+    })
+    @TransformType(() => classRef)
+    data!: T[]
+
+    @ApiProperty({
+      type: PaginationMetaDto,
+      description: '페이지네이션 메타데이터'
+    })
+    meta!: PaginationMetaDto
+  }
+
+  Object.defineProperty(PaginatedResponseDto, 'name', {
+    value: `Paginated${classRef.name}ResponseDto`
+  })
+
+  return PaginatedResponseDto
+}
+
+// 사용
+export class PaginatedUserResponseDto extends createPaginatedResponseDto(UserDto) {}
+```
+
+## Union 타입 (discriminator)
+
+다형성 타입 처리:
+
+```typescript
+import { ApiExtraModels, ApiProperty, getSchemaPath } from '@nestjs/swagger'
+
+export class CatDto {
+  @ApiProperty({ example: 'cat' })
+  type!: 'cat'
+
+  @ApiProperty({ example: 'meow' })
+  sound!: string
+}
+
+export class DogDto {
+  @ApiProperty({ example: 'dog' })
+  type!: 'dog'
+
+  @ApiProperty({ example: 'bark' })
+  sound!: string
+}
+
+@ApiExtraModels(CatDto, DogDto)
+export class PetResponseDto {
+  @ApiProperty({
+    oneOf: [
+      { $ref: getSchemaPath(CatDto) },
+      { $ref: getSchemaPath(DogDto) }
+    ],
+    discriminator: {
+      propertyName: 'type',
+      mapping: {
+        cat: getSchemaPath(CatDto),
+        dog: getSchemaPath(DogDto)
+      }
+    }
+  })
+  pet!: CatDto | DogDto
+}
 ```
