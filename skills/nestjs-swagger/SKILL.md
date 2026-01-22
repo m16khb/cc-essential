@@ -13,6 +13,8 @@ description: Use when documenting NestJS DTOs or Controllers with Swagger decora
 2. **Validator 데코레이터와 Swagger 속성 일치**
 3. **description은 한글, example은 실제 값**
 4. **커스텀 밸리데이터 적극 활용**
+5. **Enum에는 반드시 enumName 지정** (SDK 생성 품질)
+6. **옵션/상태는 마크다운 테이블로 표현** (가독성)
 
 ## Quick Reference
 
@@ -55,6 +57,28 @@ export class ExampleResponseDto {
   @ApiPropertyOptional({ description: '선택 응답 필드' })
   optionalField?: string
 }
+```
+
+### Enum 필드 패턴 (2026 표준)
+
+```typescript
+@ApiPropertyOptional({
+  description: `상태 필터
+
+**옵션:**
+| 값 | 설명 |
+|---|---|
+| \`ACTIVE\` | 활성 상태 |
+| \`INACTIVE\` | 비활성 상태 |
+
+**기본값:** 전체 조회`,
+  enum: StatusEnum,
+  enumName: 'StatusEnum',  // 필수!
+  example: 'ACTIVE',
+})
+@IsOptional()
+@IsEnum(StatusEnum)
+status?: StatusEnum
 ```
 
 ### Controller 문서화 패턴
@@ -109,6 +133,14 @@ API 소비자(프론트엔드 개발자)가 쉽게 사용할 수 있도록:
 | enum 값은 description에도 나열 | ☐ |
 | 범위 제한은 minimum/maximum 명시 | ☐ |
 | 기본값은 description과 default 모두 명시 | ☐ |
+
+### SDK 생성 최적화
+
+| 항목 | 체크 |
+|------|------|
+| enum 필드에 `enumName` 지정 | ☐ |
+| 배열 타입에 `type: [ItemDto]` 명시 | ☐ |
+| nullable 필드에 `nullable: true` 명시 | ☐ |
 
 ## 상세 가이드
 
