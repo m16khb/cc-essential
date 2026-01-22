@@ -91,15 +91,27 @@ For each property, verify:
 | enum 문서화 | description에 가능한 값 나열 (예: "pending \| completed") |
 | 범위 문서화 | minimum/maximum 속성 + description에 범위 명시 |
 
-## Description Quality Checklist
+## Description Quality Checklist (2026 Enhanced)
 
 | 항목 | 체크 기준 |
 |------|----------|
+| Why-first | 목적(왜 필요한지)이 먼저 설명됨 |
+| 옵션 테이블 | enum/boolean 옵션이 마크다운 테이블로 나열 |
+| 기본값 명시 | `**기본값:**` 섹션 존재 |
+| 사용 예시 | `**사용 예시:**` 섹션 존재 (복잡한 형식의 경우) |
 | 목적 명시 | "무엇을 위한 필드인지" 설명 있음 |
 | 제약 조건 | 유효성 검사 규칙이 description에 포함 |
-| 기본값 | optional 필드의 기본 동작 설명 |
 | 형식 | 특수 형식(ISO8601, UUID, email 등) 명시 |
 | 관계 정보 | 참조하는 엔드포인트/리소스 안내 |
+
+## SDK Optimization Checklist (2026)
+
+| 항목 | 체크 기준 |
+|------|----------|
+| enumName 사용 | enum 필드에 `enumName` 속성 존재 |
+| 배열 타입 명시 | 배열 필드에 `type: [Dto]` 존재 |
+| nullable 명시 | null 허용 필드에 `nullable: true` |
+| 마크다운 테이블 | enum/옵션이 테이블로 문서화 |
 </Analysis_Checklist>
 
 <Output_Format>
@@ -126,6 +138,16 @@ For each property, verify:
 - [ ] Property X: description missing validation constraints
 - [ ] Property X: enum values not listed in description
 - [ ] Property X: default value not documented
+
+#### SDK Optimization Issues:
+- [ ] Property `status`: enum missing enumName
+- [ ] Property `items`: array type not explicitly declared
+- [ ] Property `avatar`: nullable but `nullable: true` missing
+
+#### Description Format Issues:
+- [ ] Property `status`: options not in markdown table format
+- [ ] Property `limit`: default value not documented with **기본값:** pattern
+- [ ] Property `categoryId`: purpose (why) not explained
 
 #### Suggested Improvements:
 ```typescript
