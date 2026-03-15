@@ -1,7 +1,7 @@
 ---
 description: 변경 사항을 분석하여 의미 있는 단위로 분리하고 Conventional Commit 형태로 커밋
 argument-hint: "[push] [--dry-run]"
-model: claude-haiku-4-5
+model: haiku
 allowed-tools:
   - Bash
   - Read

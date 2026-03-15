@@ -1,7 +1,7 @@
 ---
 description: 함수/클래스의 TSDoc 자동 생성
 argument-hint: "<file-path> [--lang=ko|en]"
-model: claude-haiku-4-5
+model: haiku
 allowed-tools:
   - Read
   - Edit

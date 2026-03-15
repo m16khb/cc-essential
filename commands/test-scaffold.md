@@ -1,7 +1,7 @@
 ---
 description: 소스 파일 분석하여 테스트 파일 스캐폴딩 생성
 argument-hint: "<file-path> [--style=aaa|gwt] [--integration]"
-model: claude-haiku-4-5
+model: haiku
 allowed-tools:
   - Read
   - Write

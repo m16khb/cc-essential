@@ -1,7 +1,7 @@
 ---
 description: DTO/Entity 기반 테스트 픽스처 자동 생성
 argument-hint: "<type-name> [--count=N] [--locale=ko]"
-model: claude-haiku-4-5
+model: haiku
 allowed-tools:
   - Read
   - Write
